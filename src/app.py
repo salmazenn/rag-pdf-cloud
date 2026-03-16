@@ -10,9 +10,9 @@ import sys
 sys.path.append(str(Path(__file__).parent))
 from rag import load_and_split_pdf, build_vectorstore, load_vectorstore, build_qa_chain, ask
 
-st.set_page_config(page_title="RAG PDF Local", page_icon="📄", layout="centered")
-st.title("📄 RAG PDF Local")
-st.caption("Posez des questions sur vos PDF — 100% local avec Ollama")
+st.set_page_config(page_title="RAG PDF Cloud", page_icon="📄", layout="centered")
+st.title("📄 RAG PDF Cloud")
+st.caption("Posez des questions sur vos PDF — propulsé par Groq + HuggingFace")
 
 if "chain" not in st.session_state:
     st.session_state.chain = None
@@ -23,7 +23,8 @@ if "pdf_loaded" not in st.session_state:
 
 with st.sidebar:
     st.header("📂 Charger un PDF")
-    uploaded_file = st.file_uploader("Sélectionne un fichier PDF", type="pdf")
+    st.warning("⚠️ Version de démonstration — PDF limité à 5MB")
+    uploaded_file = st.file_uploader("Sélectionne un fichier PDF (max 5MB)", type="pdf")
     if uploaded_file and not st.session_state.pdf_loaded:
         with st.spinner("Ingestion en cours..."):
             with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
@@ -38,7 +39,8 @@ with st.sidebar:
         st.success(f"✅ PDF chargé : {uploaded_file.name}")
     st.divider()
     st.markdown("**Modèle :** `llama3` via Ollama")
-    st.markdown("**Embeddings :** Ollama local")
+    st.markdown("**Modèle :** `llama-3.3-70b` via Groq ⚡")
+    st.markdown("**Embeddings :** HuggingFace local")
     st.markdown("**Vectorstore :** ChromaDB")
 
 for msg in st.session_state.messages:
