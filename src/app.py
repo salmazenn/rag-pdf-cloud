@@ -23,8 +23,8 @@ if "pdf_loaded" not in st.session_state:
 
 with st.sidebar:
     st.header("📂 Charger un PDF")
-    st.warning("⚠️ Version de démonstration — PDF limité à 5MB")
-    uploaded_file = st.file_uploader("Sélectionne un fichier PDF (max 5MB)", type="pdf")
+    st.warning("⚠️ Version de démonstration — PDF limité à 50MB")
+    uploaded_file = st.file_uploader("Sélectionne un fichier PDF (max 50MB)", type="pdf")
     if uploaded_file and not st.session_state.pdf_loaded:
         with st.spinner("Ingestion en cours..."):
             with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
